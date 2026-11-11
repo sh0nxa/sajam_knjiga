@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using SajamKnjiga.Core.Services;
+
+namespace SajamKnjiga.ConsoleApp.Views;
+
+// Glavni meni koji korisnika usmjerava na menije pojedinacnih entiteta, po uzoru na CRUDExample
+class MainConsoleView
+{
+    private readonly SajamService _service;
+
+    public MainConsoleView(SajamService service)
+    {
+        _service = service;
+    }
+
+    public void RunMenu()
+    {
+        while (true)
+        {
+            ShowMenu();
+            string userInput = Console.ReadLine() ?? "0";
+            if (userInput == "0") break;
+            HandleMenuInput(userInput);
+        }
+    }
+
+    private void ShowMenu()
+    {
+        Console.WriteLine();
+        Console.WriteLine("===== SAJAM KNJIGA =====");
+        Console.WriteLine("1: Posetioci");
+        Console.WriteLine("2: Autori");
+        Console.WriteLine("3: Knjige");
+        Console.WriteLine("4: Izdavaci");
+        Console.WriteLine("5: Kupovine");
+        Console.WriteLine("6: Adrese");
+        Console.WriteLine("0: Izlaz");
+        Console.Write("Izaberite opciju: ");
+    }
+
+    private void HandleMenuInput(string input)
+    {
+        switch (input)
+        {
+            default:
+                Console.WriteLine("Nepostojeca opcija.");
+                break;
+        }
+    }
+}
