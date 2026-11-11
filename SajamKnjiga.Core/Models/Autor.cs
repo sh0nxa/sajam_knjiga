@@ -20,6 +20,9 @@ public class Autor
     public int AdresaId { get; set; }
     public Adresa? Adresa { get; set; }
 
+    // Popunjava se nakon ucitavanja iz fajla veza knjiga<->autor
+    public List<Knjiga> Knjige { get; set; } = new();
+
     public Autor()
     {
     }

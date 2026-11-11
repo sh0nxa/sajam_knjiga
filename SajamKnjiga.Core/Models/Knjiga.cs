@@ -24,6 +24,16 @@ public class Knjiga
     public List<Autor> Autori { get; set; } = new();
     public List<Posetilac> ZeljeliPosetioci { get; set; } = new();
 
+    // Popunjava se nakon ucitavanja kupovina
+    public List<Kupovina> Kupovine { get; set; } = new();
+
+    // Racuna se iz kupovina, ne cuva se
+    public List<Posetilac> Kupci
+    {
+        get { return Kupovine.Select(k => k.Posetilac).OfType<Posetilac>().ToList(); }
+    }
+
+
     public Knjiga()
     {
     }

@@ -23,6 +23,19 @@ public class Posetilac
     // popunjava se nakon ucitavanja ne cuva se u fajlu
     public Adresa? Adresa { get; set; }
 
+    public List<Kupovina> Kupovine { get; set; } = new();
+    public List<Knjiga> ListaZelja { get; set; } = new();
+
+    // Racuna se iz kupovina, ne cuva se
+    public double ProsecnaOcena
+    {
+        get
+        {
+            if (Kupovine.Count == 0) return 0;
+            return Kupovine.Average(k => k.Ocena);
+        }
+    }
+
     public Posetilac()
     {
     }
@@ -40,6 +53,9 @@ public class Posetilac
         Status = status;
         AdresaId = adresaId;
     }
+
+
+    
 
     public override string ToString()
     {

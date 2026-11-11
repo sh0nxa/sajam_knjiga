@@ -16,6 +16,15 @@ public class Izdavac
     public int? SefId { get; set; }
     public Autor? Sef { get; set; }
 
+    // Popunjava se nakon ucitavanja knjiga
+    public List<Knjiga> Knjige { get; set; } = new();
+
+    // Racuna se iz knjiga, ne cuva se
+    public List<Autor> Autori
+    {
+        get { return Knjige.SelectMany(k => k.Autori).Distinct().ToList(); }
+    }
+
     public Izdavac()
     {
     }
