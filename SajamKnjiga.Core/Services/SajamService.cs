@@ -244,4 +244,115 @@ public class SajamService
         return izmenjena;
     }
 
+
+
+    // ---------- Brisanje uz referencijalne zavisnosti ----------
+
+    public bool AdresaSeKoristi(int adresaId)
+    {
+        return _posetilacDao.GetAll().Exists(p => p.AdresaId == adresaId)
+            || _autorDao.GetAll().Exists(a => a.AdresaId == adresaId);
+    }
+
+    // Adresa se ne moze obrisati dok je koristi neki posjetilac ili autor
+    public bool ObrisiAdresu(int adresaId)
+    {
+        if (AdresaSeKoristi(adresaId)) return false;
+
+        bool obrisana = _adresaDao.Remove(adresaId) is not null;
+        PoveziReference();
+        return obrisana;
+    }
+
+    // Brise posjetioca, njegove kupovine, listu zelja i adresu (ako je niko drugi ne koristi)
+    public bool ObrisiPosetioca(int posetilacId)
+    {
+        Posetilac? posetilac = _posetilacDao.Remove(posetilacId);
+        if (posetilac is null) return false;
+
+        foreach (Kupovina k in posetilac.Kupovine)
+        {
+            _kupovinaDao.Remove(k.Id);
+        }
+        _listaZeljaDao.RemoveByPosetilac(posetilacId);
+        if (!AdresaSeKoristi(posetilac.AdresaId))
+        {
+            _adresaDao.Remove(posetilac.AdresaId);
+        }
+
+        PoveziReference();
+        return true;
+    }
+
+    // Brise autora, njegove veze sa knjigama i adresu (ako je niko drugi ne koristi).
+    // Izdavaci kojima je bio sef ostaju bez sefa.
+    public bool ObrisiAutora(int autorId)
+    {
+        Autor? autor = _autorDao.Remove(autorId);
+        if (autor is null) return false;
+
+        _knjigaAutorDao.RemoveByAutor(autorId);
+        foreach (Izdavac i in _izdavacDao.GetAll())
+        {
+            if (i.SefId == autorId)
+            {
+                i.SefId = null;
+                _izdavacDao.Update(i);
+            }
+        }
+        if (!AdresaSeKoristi(autor.AdresaId))
+        {
+            _adresaDao.Remove(autor.AdresaId);
+        }
+
+        PoveziReference();
+        return true;
+    }
+
+    // Brise izdavaca; njegove knjige ostaju bez izdavaca
+    public bool ObrisiIzdavaca(int izdavacId)
+    {
+        Izdavac? izdavac = _izdavacDao.Remove(izdavacId);
+        if (izdavac is null) return false;
+
+        foreach (Knjiga k in _knjigaDao.GetAll())
+        {
+            if (k.IzdavacId == izdavacId)
+            {
+                k.IzdavacId = null;
+                _knjigaDao.Update(k);
+            }
+        }
+
+        PoveziReference();
+        return true;
+    }
+
+    public bool KnjigaImaKupovine(int knjigaId)
+    {
+        return _kupovinaDao.GetAll().Exists(k => k.KnjigaId == knjigaId);
+    }
+
+    // Knjiga sa kupovinama se ne moze obrisati. Inace se brisu i njene veze sa autorima i listom zelja.
+    public bool ObrisiKnjigu(int knjigaId)
+    {
+        if (KnjigaImaKupovine(knjigaId)) return false;
+
+        Knjiga? knjiga = _knjigaDao.Remove(knjigaId);
+        if (knjiga is null) return false;
+
+        _knjigaAutorDao.RemoveByKnjiga(knjigaId);
+        _listaZeljaDao.RemoveByKnjiga(knjigaId);
+
+        PoveziReference();
+        return true;
+    }
+
+    public bool ObrisiKupovinu(int kupovinaId)
+    {
+        bool obrisana = _kupovinaDao.Remove(kupovinaId) is not null;
+        PoveziReference();
+        return obrisana;
+    }
+
 }
