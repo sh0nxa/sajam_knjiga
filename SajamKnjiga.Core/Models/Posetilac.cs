@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Globalization;
+using SajamKnjiga.Core.Serialization;
+
 namespace SajamKnjiga.Core.Models;
 
-public class Posetilac
+public class Posetilac : ISerializable
 {
     public int Id { get; set; }
     public string Ime { get; set; } = string.Empty;
@@ -60,6 +63,38 @@ public class Posetilac
     public override string ToString()
     {
         return $"{BrojClanskeKarte,-12} | {Ime,-12} | {Prezime,-15} | {Adresa?.ToString() ?? "",-35} | {Status,-8}";
+    }
+
+    public string[] ToCSV()
+    {
+        string[] csvValues =
+        {
+            Id.ToString(),
+            Ime,
+            Prezime,
+            DatumRodjenja.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), // zbog razlicitosti formata
+            KontaktTelefon,
+            Email,
+            BrojClanskeKarte,
+            TrenutnaGodinaClanstva.ToString(),
+            Status.ToString(),
+            AdresaId.ToString()
+        };
+        return csvValues;
+    }
+
+    public void FromCSV(string[] values)
+    {
+        Id = int.Parse(values[0]);
+        Ime = values[1];
+        Prezime = values[2];
+        DatumRodjenja = DateOnly.ParseExact(values[3], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        KontaktTelefon = values[4];
+        Email = values[5];
+        BrojClanskeKarte = values[6];
+        TrenutnaGodinaClanstva = int.Parse(values[7]);
+        Status = Enum.Parse<StatusPosetioca>(values[8]);
+        AdresaId = int.Parse(values[9]);
     }
 
 

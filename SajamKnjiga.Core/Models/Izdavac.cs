@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Globalization;
+using SajamKnjiga.Core.Serialization;
+
+
 namespace SajamKnjiga.Core.Models;
 
-public class Izdavac
+public class Izdavac : ISerializable
 {
     public int Id { get; set; }
     public string Sifra { get; set; } = string.Empty;
@@ -40,5 +44,25 @@ public class Izdavac
     {
         string sef = Sef is null ? "-" : $"{Sef.Ime} {Sef.Prezime}";
         return $"{Sifra,-10} | {Naziv,-25} | {sef,-25}";
+    }
+
+    public string[] ToCSV()
+    {
+        string[] csvValues =
+        {
+            Id.ToString(),
+            Sifra,
+            Naziv,
+            SefId?.ToString() ?? ""
+        };
+        return csvValues;
+    }
+
+    public void FromCSV(string[] values)
+    {
+        Id = int.Parse(values[0]);
+        Sifra = values[1];
+        Naziv = values[2];
+        SefId = values[3] == "" ? null : int.Parse(values[3]);
     }
 }

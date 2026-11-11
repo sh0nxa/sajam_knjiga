@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Globalization;
+using SajamKnjiga.Core.Serialization;
+
 namespace SajamKnjiga.Core.Models;
 
-public class Knjiga
+public class Knjiga : ISerializable
 {
     public int Id { get; set; }
     public string Isbn { get; set; } = string.Empty;
@@ -53,5 +56,33 @@ public class Knjiga
     public override string ToString()
     {
         return $"{Isbn,-18} | {Naziv,-25} | {Cena,10:F2} | {GodinaIzdanja,6} | {Zanr,-15}";
+    }
+
+    public string[] ToCSV()
+    {
+        string[] csvValues =
+        {
+            Id.ToString(),
+            Isbn,
+            Naziv,
+            Zanr,
+            GodinaIzdanja.ToString(),
+            Cena.ToString(CultureInfo.InvariantCulture),        // zbog razlicitosti formata ispisivanja dec broja (,.)
+            BrojStrana.ToString(),
+            IzdavacId?.ToString() ?? ""
+        };
+        return csvValues;
+    }
+
+    public void FromCSV(string[] values)
+    {
+        Id = int.Parse(values[0]);
+        Isbn = values[1];
+        Naziv = values[2];
+        Zanr = values[3];
+        GodinaIzdanja = int.Parse(values[4]);
+        Cena = double.Parse(values[5], CultureInfo.InvariantCulture);
+        BrojStrana = int.Parse(values[6]);
+        IzdavacId = values[7] == "" ? null : int.Parse(values[7]);
     }
 }
