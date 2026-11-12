@@ -62,6 +62,9 @@ class MainConsoleView
             case "5":
                 new KupovinaConsoleView(_service).RunMenu();
                 break;
+            case "6":
+                new AdresaConsoleView(_service).RunMenu();
+                break;
             default:
                 Console.WriteLine("Nepostojeca opcija.");
                 break;
