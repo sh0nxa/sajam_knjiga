@@ -47,6 +47,10 @@ class MainConsoleView
     {
         switch (input)
         {
+            case "1":
+                new PosetilacConsoleView(_service).RunMenu();
+                break;
+
             default:
                 Console.WriteLine("Nepostojeca opcija.");
                 break;

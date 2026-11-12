@@ -173,4 +173,18 @@ static class ConsoleViewUtils
         string unos = Procitaj($"{pitanje} (da/ne)", null).ToLower();
         return unos == "da" || unos == "d";
     }
+
+
+    // Unos adrese, zajednicki za posjetioce i autore 
+    public static Adresa InputAdresa(Adresa? trenutna = null)
+    {
+        Console.WriteLine("-- Adresa --");
+        string ulica = InputText("Ulica", trenutna?.Ulica);
+        string broj = InputText("Broj", trenutna?.Broj);
+        string grad = InputText("Grad", trenutna?.Grad);
+        string drzava = InputText("Drzava", trenutna?.Drzava);
+
+        return new Adresa(ulica, broj, grad, drzava);
+    }
+
 }
