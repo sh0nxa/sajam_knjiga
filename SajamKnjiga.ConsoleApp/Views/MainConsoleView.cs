@@ -50,6 +50,9 @@ class MainConsoleView
             case "1":
                 new PosetilacConsoleView(_service).RunMenu();
                 break;
+            case "2":
+                new AutorConsoleView(_service).RunMenu();
+                break;
 
             default:
                 Console.WriteLine("Nepostojeca opcija.");
