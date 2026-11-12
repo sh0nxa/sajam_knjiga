@@ -3,12 +3,11 @@
 Desktop aplikacija za referenta sajma knjiga.
 Projekat iz predmeta Osnove informacionih sistema i softverskog inženjerstva, 2026/2027.
 
-Tehnologije: C#, .NET, WPF
+Tehnologije: C#, .NET
 
 ## Pokretanje
 1. Otvoriti `SajamKnjiga.sln` u Visual Studio-u.
-2. Desni klik na projekat `SajamKnjiga.ConsoleApp` → **Set as Startup Project**.
-3. Pokrenuti sa `Ctrl+F5`.
+2. Pokrenuti sa Ctrl+F5
 
 Projekti ciljaju .NET 8, konzolna aplikacija se pokreće i na novijoj verziji .NET-a ako 8 nije instaliran.
 
