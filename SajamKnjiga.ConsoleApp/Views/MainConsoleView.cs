@@ -53,7 +53,9 @@ class MainConsoleView
             case "2":
                 new AutorConsoleView(_service).RunMenu();
                 break;
-
+            case "3":
+                new KnjigaConsoleView(_service).RunMenu();
+                break;
             default:
                 Console.WriteLine("Nepostojeca opcija.");
                 break;

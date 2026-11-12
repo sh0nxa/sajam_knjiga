@@ -187,4 +187,39 @@ static class ConsoleViewUtils
         return new Adresa(ulica, broj, grad, drzava);
     }
 
+
+    // Unos vise ID-jeva odvojenih, enter zadrzava trenutne, '-' znaci nijedan.
+    public static List<int> InputIdList(string poruka, List<int>? trenutna = null)
+    {
+        while (true)
+        {
+            string? prikaz = null;
+            if (trenutna is not null)
+                prikaz = trenutna.Count == 0 ? "-" : string.Join(", ", trenutna);
+
+            string unos = Procitaj($"{poruka} (odvojeni zarezom, '-' - nijedan)", prikaz);
+
+            if (unos == "" && trenutna is not null) return trenutna;
+            if (unos == "-") return new List<int>();
+
+            List<int> ids = new();
+            bool ispravno = true;
+            foreach (string deo in unos.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            {
+                if (int.TryParse(deo, out int id) && id >= 0)
+                {
+                    if (!ids.Contains(id)) ids.Add(id);
+                }
+                else
+                {
+                    ispravno = false;
+                    break;
+                }
+            }
+
+            if (ispravno && ids.Count > 0) return ids;
+            Console.WriteLine("Unesite ID-jeve odvojene zarezom (npr. 0, 2) ili '-'.");
+        }
+    }
+
 }
