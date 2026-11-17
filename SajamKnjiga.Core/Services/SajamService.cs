@@ -136,12 +136,24 @@ public class SajamService
         return novi;
     }
 
+    // Vraca izdavaca kome je autor sef, ili null ako nije sef nikome
+    public Izdavac? IzdavacKomeJeSef(int autorId)
+    {
+        return _izdavacDao.GetAll().Find(i => i.SefId == autorId);
+    }
+
+    // Autor koji je sef ne moze imati manje od 5 godina iskustva
     public Autor? IzmeniAutora(Autor autor)
     {
+        if (IzdavacKomeJeSef(autor.Id) is not null && autor.GodineIskustva < MinGodinaIskustvaZaSefa) return null;
+
         Autor? izmenjen = _autorDao.Update(autor);
         PoveziReference();
         return izmenjen;
     }
+
+
+
 
     // ---------- Izdavaci ----------
 

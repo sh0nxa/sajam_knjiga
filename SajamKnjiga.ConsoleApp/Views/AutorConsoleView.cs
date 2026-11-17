@@ -123,6 +123,14 @@ class AutorConsoleView
 
         Console.WriteLine("(Enter zadrzava trenutnu vrednost)");
         Autor izmenjen = InputAutor(stari);
+        Izdavac? izdavac = _service.IzdavacKomeJeSef(stari.Id);
+        
+        if (izdavac is not null && izmenjen.GodineIskustva < SajamService.MinGodinaIskustvaZaSefa)
+        {
+            Console.WriteLine($"Autor je sef izdavaca {izdavac.Naziv} i mora imati bar {SajamService.MinGodinaIskustvaZaSefa} godina iskustva. Izmena je odbijena.");
+            return;
+        }
+
         Adresa izmenjenaAdresa = ConsoleViewUtils.InputAdresa(stari.Adresa);
 
         izmenjen.Id = stari.Id;
