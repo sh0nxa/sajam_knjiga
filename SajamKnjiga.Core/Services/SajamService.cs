@@ -29,7 +29,8 @@ public class SajamService
         PoveziReference();
     }
 
-  
+    // od ID-jeva iz fajlova pravi reference i liste u memoriji (npr. knjiga.Izdavac, posetilac.Kupovine)
+    // poziva se pri pokretanju i posle svake izmjene, liste se prvo prazne da ne bi bilo duplikata
     private void PoveziReference()
     {
         foreach (Posetilac p in _posetilacDao.GetAll())

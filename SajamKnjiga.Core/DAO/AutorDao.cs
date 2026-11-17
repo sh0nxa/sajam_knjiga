@@ -8,6 +8,7 @@ using SajamKnjiga.Core.Models;
 using SajamKnjiga.Core.Storage;
 
 namespace SajamKnjiga.Core.DAO;
+// Po uzoru na VehiclesDAO iz CRUDExample (vjezbe 3), GenerateId izmijenjen da koristi Max
 public class AutorDao
 {
     private readonly List<Autor> _autori;

@@ -8,6 +8,7 @@ using SajamKnjiga.Core.Services;
 
 namespace SajamKnjiga.ConsoleApp.Views;
 
+// Po uzoru na VehicleConsoleView iz CRUDExample (vjezbe 3)
 class AdresaConsoleView
 {
     private readonly SajamService _service;

@@ -9,6 +9,7 @@ using SajamKnjiga.Core.Serialization;
 namespace SajamKnjiga.Core.Models;
 
 // vise-na-vise izmedju knjige i autora (jedan red u knjiga_autor.csv)
+// ToCSV/FromCSV po uzoru na Vehicle iz CRUDExample (vjezbe 3)
 public class KnjigaAutor : ISerializable
 {
     public int KnjigaId { get; set; }

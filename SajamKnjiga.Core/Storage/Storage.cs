@@ -8,7 +8,7 @@ using SajamKnjiga.Core.Serialization;
 
 namespace SajamKnjiga.Core.Storage;
 
-// Preuzeo sa vjezbi 3  (putanja izmjenjena da koristi Path.DirectorySeparatorChar)
+// Preuzeo sa vjezbi 3 (CRUDExample, putanja izmjenjena da koristi Path.DirectorySeparatorChar)
 public class Storage<T> where T : ISerializable, new()
 {
     private readonly string _filePath;

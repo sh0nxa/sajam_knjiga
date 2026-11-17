@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿// Po uzoru na Program iz CRUDExample (vjezbe 3)
+using System.Text;
 using SajamKnjiga.ConsoleApp.Views;
 using SajamKnjiga.Core.Services;
 

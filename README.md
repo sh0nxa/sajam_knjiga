@@ -1,29 +1,34 @@
 # Sajam knjiga
 
-Desktop aplikacija za referenta sajma knjiga.
-Projekat iz predmeta Osnove informacionih sistema i softverskog inženjerstva, 2026/2027.
+Projekat iz predmeta Osnove informacionih sistema i softverskog inženjerstva (2026/2027).
+Aplikacija je namijenjena referentu sajma knjiga: vodi evidenciju o posjetiocima, autorima, knjigama, izdavačima i kupovinama.
 
-Tehnologije: C#, .NET
+Rađeno u C#-u (.NET). Za sada sve ide kroz konzolu, a WPF dolazi u sljedećoj kontrolnoj tački.
 
-## Pokretanje
-1. Otvoriti `SajamKnjiga.sln` u Visual Studio-u.
-2. Pokrenuti sa Ctrl+F5
+## Kako pokrenuti
+1. Otvorite `SajamKnjiga.sln` u Visual Studio-u.
+2. Ctrl+F5 i to je to.
 
-Projekti ciljaju .NET 8, konzolna aplikacija se pokreće i na novijoj verziji .NET-a ako 8 nije instaliran.
+Projekti su na .NET 8. Ako na računaru imate samo noviju verziju .NET-a, konzolna aplikacija će se svejedno pokrenuti.
 
-## Struktura
-- `SajamKnjiga.Core` – model podataka, serijalizacija, DAO sloj i servis
+## Šta se gdje nalazi
+- `SajamKnjiga.Core` – "mozak" aplikacije:
   - `Models` – Posetilac, Autor, Knjiga, Izdavac, Kupovina, Adresa
-  - `Serialization`, `Storage` – čitanje i pisanje CSV fajlova
-  - `DAO` – po jedan DAO za svaki entitet i za veze knjiga–autor i lista želja
-  - `Services/SajamService` – povezivanje referenci i pravila brisanja
-- `SajamKnjiga.ConsoleApp` – konzolni prikaz, dodavanje, izmjena i brisanje svih entiteta
-- `Data` – CSV fajlovi sa podacima (separator `|`)
+  - `Serialization` i `Storage` – čitanje i pisanje CSV fajlova
+  - `DAO` – po jedan DAO za svaki entitet, plus dva za veze (knjiga–autor i lista želja)
+  - `Services/SajamService` – povezuje entitete i pazi na pravila (npr. šta smije da se obriše)
+- `SajamKnjiga.ConsoleApp` – konzolni meniji za prikaz, dodavanje, izmjenu i brisanje svih entiteta
+- `Data` – CSV fajlovi sa podacima (separator je `|`)
+
+Dio koda (serijalizacija, Storage, obrazac DAO-a i menija) urađen je po uzoru na primjer CRUDExample sa vježbi. To je naznačeno i komentarima u kodu.
 
 ## Podaci
-Podaci se čuvaju u folderu `Data` u korijenu repozitorijuma. Uz projekat su priloženi testni podaci
-(5 posetilaca, 4 autora, 3 izdavača, 6 knjiga, 8 kupovina, liste želja).
+Svi podaci se čuvaju u folderu `Data`, u korijenu repozitorijuma.
+Ubacio sam i testne podatke da ne krećete od nule: 5 posjetilaca, 4 autora, 3 izdavača, 6 knjiga, 8 kupovina i par stavki na listama želja.
 
 ## Podjela posla
-| Član tima		| Kontrolna tačka 1 |
-| Djordje Gusic | sve funkcionalnosti (model, serijalizacija, konzolni CRUD za sve entitete) |
+Projekat radim sam.
+
+| Član tima | Kontrolna tačka 1 |
+|---|---|
+| Djordje Gusic | sve: model, serijalizacija i konzolni CRUD za sve entitete |

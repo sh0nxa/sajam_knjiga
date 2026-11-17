@@ -9,6 +9,7 @@ using SajamKnjiga.Core.Storage;
 
 namespace SajamKnjiga.Core.DAO;
 
+// Ucitavanje i cuvanje preko Storage-a po uzoru na VehiclesDAO iz CRUDExample (vjezbe 3)
 public class ListaZeljaDao
 {
     private readonly List<ListaZeljaStavka> _stavke;

@@ -10,6 +10,7 @@ using SajamKnjiga.Core.Serialization;
 
 namespace SajamKnjiga.Core.Models;
 
+// ToCSV/FromCSV po uzoru na Vehicle iz CRUDExample (vjezbe 3)
 public class Adresa : ISerializable
 {
     public int Id { get; set; }

@@ -10,6 +10,7 @@ using SajamKnjiga.Core.Storage;
 namespace SajamKnjiga.Core.DAO;
 
 // Cuva veze knjiga-autor (knjiga_autor.csv). Veza nema sta da mijenja, pa nema update.
+// Ucitavanje i cuvanje preko Storage-a po uzoru na VehiclesDAO iz CRUDExample (vjezbe 3)
 public class KnjigaAutorDao
 {
     private readonly List<KnjigaAutor> _veze;
