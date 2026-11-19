@@ -72,10 +72,10 @@ class PosetilacConsoleView
             return;
         }
 
-        Console.WriteLine($"{"ID",4} | {"Br. karte",-12} | {"Ime",-12} | {"Prezime",-15} | {"Adresa",-35} | {"Status",-8}");
+        Console.WriteLine($"{"ID",4} | {"Br. karte",-12} | {"Ime",-12} | {"Prezime",-15} | {"Adresa",-35} | {"Status",-8} | {"Ocena",5}");
         foreach (Posetilac p in posetioci)
         {
-            Console.WriteLine($"{p.Id,4} | {p}");
+            Console.WriteLine($"{p.Id,4} | {p} | {p.ProsecnaOcena,5:F2}");
         }
     }
 
